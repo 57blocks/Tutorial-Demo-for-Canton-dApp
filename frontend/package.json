@@ -7,10 +7,15 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "codegen": "dpm codegen-js ../daml/*.dar -o src/generated/daml"
   },
   "dependencies": {
     "@fivenorth/loop-sdk": "^0.12.4",
+    "@daml.js/splice-api-token-transfer-instruction-v1-1.0.0": "file:src/generated/daml/splice-api-token-transfer-instruction-v1-1.0.0",
+    "@daml.js/utility-credential-app-v0-0.4.1": "file:src/generated/daml/utility-credential-app-v0-0.4.1",
+    "@daml.js/utility-credential-v0-0.1.0": "file:src/generated/daml/utility-credential-v0-0.1.0",
+    "@daml/types": "^3.5.1",
     "@radix-ui/react-slot": "^1.2.4",
     "@tailwindcss/vite": "^4.3.0",
     "class-variance-authority": "^0.7.1",

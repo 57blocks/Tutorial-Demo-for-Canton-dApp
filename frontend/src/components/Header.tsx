@@ -1,24 +1,99 @@
+import { useState, useCallback } from 'react';
 import { useLoop } from '../context/LoopContext';
 import SmoothButton from '@components/ui/smoothui/smooth-button';
-import { Wallet, LogOut } from 'lucide-react';
+import { Wallet, LogOut, Copy, Check, Hexagon } from 'lucide-react';
 
 export function Header() {
   const { isConnected, isConnecting, connect, disconnect, provider } = useLoop();
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = useCallback(async () => {
+    if (!provider?.party_id) return;
+    try {
+      await navigator.clipboard.writeText(provider.party_id);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      const ta = document.createElement('textarea');
+      ta.value = provider.party_id;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  }, [provider?.party_id]);
 
   return (
-    <header className="flex items-center justify-between px-6 py-4 border-b border-[var(--color-border)]">
+    <header
+      className="flex items-center justify-between px-6 py-3.5 border-b sticky top-0 z-30"
+      style={{
+        borderColor: 'var(--color-border)',
+        background: '#09090be6',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
+      }}
+    >
       <div className="flex items-center gap-3">
-        <div className="w-8 h-8 rounded-lg bg-[var(--color-primary)] flex items-center justify-center">
-          <Wallet className="w-4 h-4 text-white" />
+        <div
+          className="w-8 h-8 flex items-center justify-center rounded-lg transition-transform"
+          style={{
+            background: 'var(--color-accent-muted)',
+            color: 'var(--color-accent-soft)',
+          }}
+        >
+          <Hexagon className="w-5 h-5" />
         </div>
-        <h1 className="text-lg font-semibold">Loop Wallet</h1>
+        <div>
+          <h1
+            className="text-base font-semibold tracking-tight"
+            style={{ color: 'var(--color-foreground)' }}
+          >
+            Loop
+          </h1>
+          <div
+            className="text-[10px] font-medium uppercase tracking-widest leading-none"
+            style={{ color: 'var(--color-muted-foreground)' }}
+          >
+            Wallet
+          </div>
+        </div>
       </div>
 
       <div className="flex items-center gap-4">
         {isConnected && provider && (
-          <span className="text-sm text-[var(--color-muted-foreground)] font-mono truncate max-w-[200px]">
-            {provider.party_id.split('::')[0].slice(0, 16)}...
-          </span>
+          <button
+            type="button"
+            onClick={handleCopy}
+            className="flex items-center gap-2 text-xs font-mono py-1.5 px-3 rounded-md border transition-all duration-200 cursor-pointer group"
+            style={{
+              borderColor: copied ? 'var(--color-accent)' : 'var(--color-border)',
+              background: copied ? 'var(--color-accent-muted)' : 'transparent',
+              color: copied ? 'var(--color-accent-soft)' : 'var(--color-muted-foreground)',
+            }}
+            title="Click to copy Party ID"
+          >
+            <span style={{ color: copied ? 'var(--color-accent-soft)' : 'var(--color-foreground-dim)' }}>
+              {provider.party_id.split('::')[0].slice(0, 14)}...
+            </span>
+            <span style={{ color: 'var(--color-muted-foreground)' }}>
+              ::
+            </span>
+            <span style={{ color: 'var(--color-muted-foreground)' }}>
+              {provider.party_id.split('::')[1]?.slice(0, 6)}...
+            </span>
+            {copied ? (
+              <Check className="w-3 h-3" style={{ color: 'var(--color-accent)' }} />
+            ) : (
+              <Copy
+                className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                style={{ color: 'var(--color-muted-foreground)' }}
+              />
+            )}
+          </button>
         )}
         {isConnected ? (
           <SmoothButton variant="outline" size="sm" onClick={disconnect}>

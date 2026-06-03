@@ -1,31 +1,79 @@
 @import "tailwindcss";
 
 :root {
-  --color-primary: #6366f1;
-  --color-primary-foreground: #ffffff;
-  --color-secondary: #f1f5f9;
-  --color-secondary-foreground: #0f172a;
-  --color-background: #0f172a;
-  --color-foreground: #f8fafc;
-  --color-card: #1e293b;
-  --color-card-foreground: #f8fafc;
-  --color-border: #334155;
-  --color-muted: #334155;
-  --color-muted-foreground: #94a3b8;
-  --color-accent: #6366f1;
+  /* Background hierarchy */
+  --color-background: #09090b;
+  --color-surface: #131315;
+  --color-surface-raised: #1a1a1d;
+  --color-surface-overlay: #1a1a1de6;
+
+  /* Foreground */
+  --color-foreground: #fafafa;
+  --color-foreground-dim: #d4d4d8;
+  --color-muted-foreground: #71717a;
+
+  /* Accent — emerald: fresh, technological, trustworthy */
+  --color-accent: #10b981;
+  --color-accent-soft: #34d399;
+  --color-accent-muted: #10b98126;
+  --color-accent-foreground: #022c22;
+
+  /* Legacy aliases (keep component var refs working) */
+  --color-primary: var(--color-accent);
+  --color-primary-foreground: #022c22;
+  --color-secondary: var(--color-surface);
+  --color-secondary-foreground: var(--color-foreground);
+
+  /* Surfaces */
+  --color-card: var(--color-surface);
+  --color-card-foreground: var(--color-foreground);
+
+  /* Borders */
+  --color-border: #27272a;
+  --color-border-hover: #3f3f46;
+  --color-border-accent: #10b98133;
+
+  /* Semantic */
+  --color-success: #22c55e;
+  --color-success-muted: #22c55e1a;
+  --color-warning: #f59e0b;
+  --color-warning-muted: #f59e0b1a;
   --color-destructive: #ef4444;
-  --color-ring: #6366f1;
-  --color-brand: #6366f1;
-  --color-brand-secondary: #4f46e5;
+  --color-destructive-muted: #ef44441a;
+
+  /* Misc */
+  --color-muted: var(--color-surface);
+  --color-ring: var(--color-accent);
+
+  /* Radii */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --duration-fast: 150ms;
+  --duration-normal: 200ms;
+  --duration-slow: 300ms;
 }
 
 * {
   box-sizing: border-box;
 }
 
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
   background: var(--color-background);
   color: var(--color-foreground);
   min-height: 100vh;
@@ -33,4 +81,81 @@ body {
 
 #root {
   min-height: 100vh;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3f3f46;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #27272a transparent;
+}
+
+/* ── Selection ── */
+::selection {
+  background: var(--color-accent-muted);
+  color: var(--color-accent-soft);
+}
+
+/* ── Focus ring ── */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ── Staggered entry animation ── */
+@keyframes card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-card-enter {
+  animation: card-enter var(--duration-slow) var(--ease-out) forwards;
+  opacity: 0;
+}
+
+.animate-fade-up {
+  animation: fade-up var(--duration-normal) var(--ease-out) forwards;
+  opacity: 0;
+}
+
+/* ── Glass surface ── */
+.glass {
+  background: #131315cc;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }

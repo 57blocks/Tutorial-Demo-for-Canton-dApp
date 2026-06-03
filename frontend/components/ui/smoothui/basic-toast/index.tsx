@@ -25,11 +25,13 @@ const toastIcons = {
 
 const toastClasses = {
   success:
-    "border-emerald-100 bg-emerald-50 dark:border-emerald-900 dark:bg-emerald-950",
-  error: "border-red-100 bg-red-50 dark:border-red-900 dark:bg-red-950",
+    "border-emerald-100 bg-emerald-50 text-emerald-950 dark:border-emerald-900 dark:bg-emerald-950 dark:text-emerald-50",
+  error:
+    "border-red-100 bg-red-50 text-red-950 dark:border-red-900 dark:bg-red-950 dark:text-red-50",
   warning:
-    "border-amber-100 bg-amber-50 dark:border-amber-900 dark:bg-amber-950",
-  info: "border-blue-100 bg-blue-50 dark:border-blue-900 dark:bg-blue-950",
+    "border-amber-100 bg-amber-50 text-amber-950 dark:border-amber-900 dark:bg-amber-950 dark:text-amber-50",
+  info:
+    "border-blue-100 bg-blue-50 text-blue-950 dark:border-blue-900 dark:bg-blue-950 dark:text-blue-50",
 };
 
 export default function BasicToast({
