@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { LoopProvider } from './context/LoopContext';
+import { LoopProvider, useLoop } from './context/LoopContext';
 import { Header } from './components/Header';
 import { Holdings } from './components/Holdings';
 import { CredentialOffers } from './components/CredentialOffers';
 import { TransferForm } from './components/TransferForm';
 import { ExpiredTransferBanner } from './components/ExpiredTransferBanner';
+import { WalletLoading } from './components/WalletLoading';
 import { Wallet, Send } from 'lucide-react';
 
 const TABS = [
@@ -15,19 +16,30 @@ const TABS = [
 
 function AppContent() {
   const [tab, setTab] = useState<string>('wallet');
+  const { isInitializing, isConnecting, isConnected } = useLoop();
+  const showLoading = (isInitializing || isConnecting) && !isConnected;
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: 'var(--color-background)' }}>
+    <div className="min-h-screen flex flex-col" style={{ color: 'var(--color-foreground)' }}>
+      <AnimatePresence>
+        {showLoading && (
+          <WalletLoading
+            message={isConnecting ? 'Connecting wallet...' : 'Initializing Loop...'}
+          />
+        )}
+      </AnimatePresence>
+
       <Header />
 
       {/* Tab bar */}
       <div
         className="sticky top-0 z-20 border-b"
         style={{
-          borderColor: 'var(--color-border)',
-          background: '#09090bf0',
-          backdropFilter: 'blur(12px)',
-          WebkitBackdropFilter: 'blur(12px)',
+          borderColor: 'rgba(255,255,255,0.05)',
+          background: 'rgba(10,10,28,0.55)',
+          backdropFilter: 'blur(24px)',
+          WebkitBackdropFilter: 'blur(24px)',
+          boxShadow: '0 8px 32px rgba(0,0,0,0.28)',
         }}
       >
         <div className="max-w-5xl mx-auto px-6 flex gap-1">
@@ -80,7 +92,7 @@ function AppContent() {
               <CredentialOffers />
               <section>
                 <h2
-                  className="text-lg font-semibold mb-4"
+                  className="text-lg font-semibold mb-4 tracking-tight"
                   style={{ color: 'var(--color-foreground-dim)' }}
                 >
                   Holdings

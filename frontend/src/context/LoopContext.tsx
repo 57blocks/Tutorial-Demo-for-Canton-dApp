@@ -71,6 +71,7 @@ interface LoopContextValue {
   provider: Provider | null;
   isConnected: boolean;
   isConnecting: boolean;
+  isInitializing: boolean;
   holdings: Holding[];
   holdingContracts: ActiveContract[];
   credentialOffers: ActiveContract[];
@@ -104,6 +105,7 @@ export function LoopProvider({ children }: { children: ReactNode }) {
   const [provider, setProvider] = useState<Provider | null>(null);
   const [isConnected, setIsConnected] = useState(false);
   const [isConnecting, setIsConnecting] = useState(false);
+  const [isInitializing, setIsInitializing] = useState(true);
   const [holdings, setHoldings] = useState<Holding[]>([]);
   const [holdingContracts, setHoldingContracts] = useState<ActiveContract[]>([]);
   const [credentialOffers, setCredentialOffers] = useState<ActiveContract[]>([]);
@@ -136,8 +138,8 @@ export function LoopProvider({ children }: { children: ReactNode }) {
       },
     });
 
-    // Try auto-connect
-    loop.autoConnect().catch(() => {});
+    // Try auto-connect, then mark init as complete
+    loop.autoConnect().finally(() => setIsInitializing(false));
   }, []);
 
   const fetchData = useCallback(async () => {
@@ -463,6 +465,7 @@ export function LoopProvider({ children }: { children: ReactNode }) {
       provider,
       isConnected,
       isConnecting,
+      isInitializing,
       holdings,
       holdingContracts,
       credentialOffers,

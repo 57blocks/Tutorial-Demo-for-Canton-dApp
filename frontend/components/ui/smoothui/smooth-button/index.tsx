@@ -7,27 +7,28 @@ import type React from "react";
 import type { ButtonHTMLAttributes } from "react";
 
 const smoothButtonVariants = cva(
-  "inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-md font-medium text-sm ring-offset-background transition-transform duration-150 ease-out focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 active:scale-[0.97] disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-lg font-medium text-sm transition-all duration-150 ease-out focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)] active:scale-[0.97] disabled:pointer-events-none disabled:opacity-40",
   {
     variants: {
       variant: {
         default:
-          "bg-primary text-primary-foreground shadow-xs hover:bg-primary/90",
+          "bg-[var(--color-accent)] text-white shadow-[0_1px_2px_rgba(0,0,0,0.3)] hover:bg-[var(--color-accent-soft)]",
         destructive:
-          "bg-gradient-to-b from-[#FD4B4E] to-destructive text-shadow-sm text-white shadow-[0px_1px_2px_rgba(0,0,0,0.4),0px_0px_0px_1px_#F61418,inset_0px_0.75px_0px_rgba(255,255,255,0.2)] hover:from-destructive hover:to-destructive",
+          "bg-[var(--color-destructive)] text-white shadow-[0_1px_2px_rgba(0,0,0,0.3)] hover:opacity-90",
         outline:
-          "border border-input bg-background shadow-xs hover:bg-accent hover:text-white dark:bg-input/30 dark:hover:bg-input/50",
+          "border border-[var(--color-border)] bg-transparent text-[var(--color-foreground-dim)] hover:bg-[rgba(255,255,255,0.04)] hover:border-[rgba(255,255,255,0.16)] hover:text-[var(--color-foreground)]",
         secondary:
-          "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
-        ghost: "hover:bg-background hover:text-foreground hover:shadow-custom",
-        link: "text-primary underline-offset-4 hover:underline",
+          "bg-[rgba(255,255,255,0.04)] text-[var(--color-foreground-dim)] hover:bg-[rgba(255,255,255,0.08)] hover:text-[var(--color-foreground)]",
+        ghost:
+          "text-[var(--color-muted-foreground)] hover:bg-[rgba(255,255,255,0.04)] hover:text-[var(--color-foreground)]",
+        link: "text-[var(--color-accent)] underline-offset-4 hover:underline",
         candy:
-          "border-[0.5px] border-white/25 bg-gradient-to-b from-brand to-brand-secondary text-shadow-sm text-white shadow-black/20 shadow-md ring-(--ring-color) ring-1 [--ring-color:color-mix(in_oklab,var(--color-foreground)15%,var(--color-brand))] hover:from-brand-secondary hover:to-brand-secondary [&_svg]:drop-shadow-sm",
+          "border border-[rgba(255,255,255,0.10)] bg-gradient-to-b from-[var(--color-accent)] to-[var(--color-brand-secondary)] text-white shadow-[0_1px_2px_rgba(0,0,0,0.22),inset_0_0.75px_0_rgba(255,255,255,0.20)] hover:from-[var(--color-accent-soft)] hover:to-[var(--color-accent)] [&_svg]:drop-shadow-[0_1px_1px_rgba(0,0,0,0.20)]",
       },
       size: {
-        default: "h-10 px-4 py-2",
-        sm: "h-9 rounded-md px-4 py-2",
-        lg: "h-11 rounded-md px-8",
+        default: "h-10 px-5 py-2",
+        sm: "h-9 rounded-lg px-4 py-2",
+        lg: "h-11 rounded-lg px-8",
         icon: "h-10 w-10",
       },
     },

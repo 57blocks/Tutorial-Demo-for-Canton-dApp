@@ -78,9 +78,9 @@ export function ExpiredTransferBanner() {
         initial={{ opacity: 0, y: -8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-        className="rounded-xl border p-4 mb-6"
+        className="rounded-2xl border p-4 mb-6"
         style={{
-          borderColor: '#f59e0b33',
+          borderColor: 'rgba(245,158,11,0.25)',
           background: 'var(--color-warning-muted)',
         }}
       >
@@ -89,7 +89,7 @@ export function ExpiredTransferBanner() {
           <span className="font-semibold text-sm" style={{ color: 'var(--color-warning)' }}>
             {expired.length} Expired Transfer{expired.length > 1 ? 's' : ''}
           </span>
-          <span className="text-xs" style={{ color: 'var(--color-muted-foreground)' }}>
+          <span className="text-xs" style={{ color: 'var(--color-foreground-dim)' }}>
             — These outgoing transfers have expired and can be withdrawn
           </span>
         </div>
@@ -100,10 +100,10 @@ export function ExpiredTransferBanner() {
               key={t.contractId}
               initial={{ opacity: 0, x: -4 }}
               animate={{ opacity: 1, x: 0 }}
-              className="flex items-center justify-between rounded-lg px-3 py-2.5"
+              className="flex items-center justify-between rounded-xl px-3 py-2.5"
               style={{
                 border: '1px solid var(--color-border)',
-                background: 'var(--color-background)',
+                background: 'rgba(0,0,0,0.03)',
               }}
             >
               <div className="flex items-center gap-3 min-w-0">
@@ -112,7 +112,7 @@ export function ExpiredTransferBanner() {
                   <div className="text-sm font-medium truncate" style={{ color: 'var(--color-foreground-dim)' }}>
                     {t.amount} {t.instrument?.id || 'tokens'}
                   </div>
-                  <div className="text-xs" style={{ color: 'var(--color-muted-foreground)' }}>
+                  <div className="text-xs" style={{ color: 'var(--color-foreground-dim)' }}>
                     To: {truncatePartyId(t.receiver)} &middot; Expired: {formatDate(t.executeBefore)}
                   </div>
                 </div>

@@ -31,10 +31,11 @@ export function Header() {
     <header
       className="flex items-center justify-between px-6 py-3.5 border-b sticky top-0 z-30"
       style={{
-        borderColor: 'var(--color-border)',
-        background: '#09090be6',
-        backdropFilter: 'blur(12px)',
-        WebkitBackdropFilter: 'blur(12px)',
+        borderColor: 'rgba(255,255,255,0.05)',
+        background: 'rgba(10,10,28,0.55)',
+        backdropFilter: 'blur(24px)',
+        WebkitBackdropFilter: 'blur(24px)',
+        boxShadow: '0 8px 32px rgba(0,0,0,0.28)',
       }}
     >
       <div className="flex items-center gap-3">
@@ -42,7 +43,7 @@ export function Header() {
           className="w-8 h-8 flex items-center justify-center rounded-lg transition-transform"
           style={{
             background: 'var(--color-accent-muted)',
-            color: 'var(--color-accent-soft)',
+            color: 'var(--color-accent)',
           }}
         >
           <Hexagon className="w-5 h-5" />
@@ -50,7 +51,7 @@ export function Header() {
         <div>
           <h1
             className="text-base font-semibold tracking-tight"
-            style={{ color: 'var(--color-foreground)' }}
+            style={{ fontFamily: "'Inter Tight', 'Inter', system-ui, sans-serif", color: 'var(--color-foreground)' }}
           >
             Loop
           </h1>
@@ -68,10 +69,11 @@ export function Header() {
           <button
             type="button"
             onClick={handleCopy}
-            className="flex items-center gap-2 text-xs font-mono py-1.5 px-3 rounded-md border transition-all duration-200 cursor-pointer group"
+            className="flex items-center gap-2 text-xs py-1.5 px-3 rounded-lg border transition-all duration-150 cursor-pointer group"
             style={{
+              fontFamily: "'JetBrains Mono', 'SF Mono', monospace",
               borderColor: copied ? 'var(--color-accent)' : 'var(--color-border)',
-              background: copied ? 'var(--color-accent-muted)' : 'transparent',
+              background: copied ? 'var(--color-accent-muted)' : 'rgba(255,255,255,0.04)',
               color: copied ? 'var(--color-accent-soft)' : 'var(--color-muted-foreground)',
             }}
             title="Click to copy Party ID"

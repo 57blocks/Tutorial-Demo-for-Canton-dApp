@@ -17,21 +17,21 @@ export interface ToastProps {
 }
 
 const toastIcons = {
-  success: <CheckCircle className="h-5 w-5 text-emerald-500" />,
-  error: <XCircle className="h-5 w-5 text-red-500" />,
-  warning: <AlertCircle className="h-5 w-5 text-amber-500" />,
-  info: <Info className="h-5 w-5 text-blue-500" />,
+  success: <CheckCircle className="h-5 w-5" style={{ color: 'var(--color-success)' }} />,
+  error: <XCircle className="h-5 w-5" style={{ color: 'var(--color-destructive)' }} />,
+  warning: <AlertCircle className="h-5 w-5" style={{ color: 'var(--color-warning)' }} />,
+  info: <Info className="h-5 w-5" style={{ color: '#60A5FA' }} />,
 };
 
 const toastClasses = {
   success:
-    "border-emerald-100 bg-emerald-50 text-emerald-950 dark:border-emerald-900 dark:bg-emerald-950 dark:text-emerald-50",
+    "border-[rgba(34,197,94,0.25)] bg-[rgba(34,197,94,0.10)] text-[#BBF7D0]",
   error:
-    "border-red-100 bg-red-50 text-red-950 dark:border-red-900 dark:bg-red-950 dark:text-red-50",
+    "border-[rgba(239,68,68,0.25)] bg-[rgba(239,68,68,0.10)] text-[#FECACA]",
   warning:
-    "border-amber-100 bg-amber-50 text-amber-950 dark:border-amber-900 dark:bg-amber-950 dark:text-amber-50",
+    "border-[rgba(245,158,11,0.25)] bg-[rgba(245,158,11,0.10)] text-[#FDE68A]",
   info:
-    "border-blue-100 bg-blue-50 text-blue-950 dark:border-blue-900 dark:bg-blue-950 dark:text-blue-50",
+    "border-[rgba(96,165,250,0.25)] bg-[rgba(96,165,250,0.10)] text-[#BFDBFE]",
 };
 
 export default function BasicToast({
@@ -100,7 +100,7 @@ export default function BasicToast({
           <div className="flex-shrink-0">{toastIcons[type]}</div>
           <p className="flex-1 text-sm">{message}</p>
           <button
-            className="flex-shrink-0 rounded-full p-1 transition-colors hover:bg-black/5 dark:hover:bg-white/10"
+            className="flex-shrink-0 rounded-full p-1 transition-colors hover:bg-white/5"
             onClick={() => {
               setVisible(false);
               onClose?.();

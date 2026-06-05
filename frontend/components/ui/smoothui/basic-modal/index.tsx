@@ -111,7 +111,8 @@ export default function BasicModal({
           {/* Backdrop */}
           <motion.div
             animate={{ opacity: 1 }}
-            className="fixed inset-0 z-[80] bg-background/70 backdrop-blur-sm"
+            className="fixed inset-0 z-[80]"
+            style={{ background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)' }}
             exit={{ opacity: 0 }}
             initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
             onClick={(e) => {
@@ -135,7 +136,14 @@ export default function BasicModal({
               animate={shouldReduceMotion ? {} : { scale: 1, y: 0, opacity: 1 }}
               aria-labelledby={titleId}
               aria-modal="true"
-              className={`${modalSizes[size]} relative mx-auto w-full rounded-xl border bg-primary p-4 shadow-xl sm:p-6`}
+              className={`${modalSizes[size]} relative mx-auto w-full rounded-2xl border p-4 sm:p-6`}
+              style={{
+                borderColor: 'rgba(255,255,255,0.10)',
+                background: 'var(--color-surface-raised)',
+                boxShadow: 'var(--shadow-palette)',
+                backdropFilter: 'blur(20px)',
+                WebkitBackdropFilter: 'blur(20px)',
+              }}
               exit={
                 shouldReduceMotion
                   ? { opacity: 0, transition: { duration: 0 } }
@@ -158,24 +166,30 @@ export default function BasicModal({
                   ? { duration: 0 }
                   : {
                       type: "spring" as const,
-                      damping: 25,
+                      damping: 20,
                       stiffness: 300,
-                      duration: 0.25,
+                      mass: 0.8,
+                      duration: 0.3,
                     }
               }
             >
               {/* Header */}
               <div className="mb-4 flex items-center justify-between">
                 {title && (
-                  <h3 className="font-medium text-xl leading-6" id={titleId}>
+                  <h3
+                    className="font-semibold text-lg leading-6 tracking-tight"
+                    id={titleId}
+                    style={{ fontFamily: "'Inter Tight', 'Inter', system-ui, sans-serif" }}
+                  >
                     {title}
                   </h3>
                 )}
                 <motion.button
                   aria-label="Close modal"
-                  className="ml-auto min-h-[44px] min-w-[44px] rounded-full p-2 transition-colors hover:bg-secondary focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                  className="ml-auto min-h-[44px] min-w-[44px] rounded-xl p-2 transition-colors hover:bg-white/[0.04] focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
                   onClick={onClose}
                   ref={closeButtonRef}
+                  style={{ color: 'var(--color-muted-foreground)' }}
                   transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
                   type="button"
                   whileHover={shouldReduceMotion ? {} : { rotate: 90 }}

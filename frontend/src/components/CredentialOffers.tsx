@@ -79,12 +79,12 @@ function CollapsibleJson({ data, label }: { data: unknown; label: string }) {
 
   return (
     <div
-      className="rounded-lg overflow-hidden"
+      className="rounded-xl overflow-hidden"
       style={{ border: '1px solid var(--color-border)' }}
     >
       <button
         onClick={() => setExpanded(!expanded)}
-        className="w-full flex items-center gap-2 px-3 py-2 text-xs hover:bg-white/[0.03] transition-colors"
+        className="w-full flex items-center gap-2 px-3 py-2 text-xs hover:bg-white/[0.04] transition-colors"
         style={{ color: 'var(--color-muted-foreground)' }}
       >
         {expanded ? <ChevronDown className="w-3 h-3" /> : <ChevronRight className="w-3 h-3" />}
@@ -192,13 +192,18 @@ export function CredentialOffers() {
   const currentTransfer = transfers.find(t => (t.contractId || `idx-${t._idx}`) === selectedTransfer);
 
   const cardBaseStyle: React.CSSProperties = {
-    border: '1px solid var(--color-border)',
-    background: 'var(--color-surface)',
-    transition: 'border-color var(--duration-normal) var(--ease-out), transform var(--duration-normal) var(--ease-out)',
+    border: '1px solid rgba(255,255,255,0.05)',
+    background: 'rgba(10,10,28,0.55)',
+    backdropFilter: 'blur(24px)',
+    WebkitBackdropFilter: 'blur(24px)',
+    boxShadow: '0 8px 32px rgba(0,0,0,0.28)',
+    borderRadius: 'var(--radius-lg)',
+    transition: 'border-color var(--duration-fast) var(--ease-out), transform var(--duration-fast) var(--ease-out)',
   };
 
   const sectionStyle: React.CSSProperties = {
     color: 'var(--color-foreground-dim)',
+    fontFamily: "'Inter Tight', 'Inter', system-ui, sans-serif",
   };
 
   return (
@@ -225,18 +230,18 @@ export function CredentialOffers() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.2, delay: i * 0.04, ease: [0.16, 1, 0.3, 1] }}
                   whileHover={{ x: 2 }}
-                  className="flex items-center justify-between rounded-xl p-4 cursor-pointer"
+                  className="flex items-center justify-between rounded-2xl p-4 cursor-pointer"
                   style={cardBaseStyle}
                   onClick={() => setSelectedOffer(offerId)}
-                  onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--color-border-accent)'; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--color-border)'; }}
+                  onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.16)'; e.currentTarget.style.boxShadow = 'var(--shadow-palette)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--color-border)'; e.currentTarget.style.boxShadow = 'none'; }}
                 >
                   <div className="flex items-center gap-3">
                     <div
-                      className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
+                      className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
                       style={{ background: 'var(--color-accent-muted)' }}
                     >
-                      <ShieldCheck className="w-4 h-4" style={{ color: 'var(--color-accent-soft)' }} />
+                      <ShieldCheck className="w-4 h-4" style={{ color: 'var(--color-accent)' }} />
                     </div>
                     <div>
                       <div className="font-medium text-sm">{offer.id || offer.description || 'Credential Offer'}</div>
@@ -277,18 +282,18 @@ export function CredentialOffers() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.2, delay: i * 0.04, ease: [0.16, 1, 0.3, 1] }}
                   whileHover={{ x: 2 }}
-                  className="flex items-center justify-between rounded-xl p-4 cursor-pointer"
+                  className="flex items-center justify-between rounded-2xl p-4 cursor-pointer"
                   style={cardBaseStyle}
                   onClick={() => setSelectedTransfer(transferId)}
-                  onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--color-border-accent)'; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--color-border)'; }}
+                  onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.16)'; e.currentTarget.style.boxShadow = 'var(--shadow-palette)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--color-border)'; e.currentTarget.style.boxShadow = 'none'; }}
                 >
                   <div className="flex items-center gap-3">
                     <div
-                      className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
+                      className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
                       style={{ background: 'var(--color-accent-muted)' }}
                     >
-                      <ArrowDownToLine className="w-4 h-4" style={{ color: 'var(--color-accent-soft)' }} />
+                      <ArrowDownToLine className="w-4 h-4" style={{ color: 'var(--color-accent)' }} />
                     </div>
                     <div>
                       <div className="font-medium text-sm">
@@ -323,8 +328,8 @@ export function CredentialOffers() {
             </p>
 
             <div
-              className="rounded-xl p-4 flex flex-col gap-3"
-              style={{ background: 'var(--color-background)' }}
+              className="rounded-2xl p-4 flex flex-col gap-3"
+              style={{ background: 'rgba(255,255,255,0.04)' }}
             >
               {(currentOffer.id || currentOffer.description) && (
                 <div>
@@ -405,8 +410,8 @@ export function CredentialOffers() {
             </p>
 
             <div
-              className="rounded-xl p-4 flex flex-col gap-3"
-              style={{ background: 'var(--color-background)' }}
+              className="rounded-2xl p-4 flex flex-col gap-3"
+              style={{ background: 'rgba(255,255,255,0.04)' }}
             >
               {currentTransfer.amount && (
                 <div>

@@ -78,11 +78,15 @@ function DateTimePicker({ value, onChange, onClose, minDate }: {
 
   const btnBase: React.CSSProperties = {
     border: '1px solid var(--color-border)',
-    background: 'var(--color-background)',
+    background: 'rgba(255,255,255,0.10)',
     color: 'var(--color-foreground)',
     borderRadius: '0.5rem',
     cursor: 'pointer',
     fontSize: '0.8125rem',
+    backdropFilter: 'blur(12px)',
+    WebkitBackdropFilter: 'blur(12px)',
+    WebkitAppearance: 'none',
+    appearance: 'none',
   };
 
   return (
@@ -91,11 +95,13 @@ function DateTimePicker({ value, onChange, onClose, minDate }: {
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: -4, scale: 0.98 }}
       transition={{ duration: 0.15, ease: [0.16, 1, 0.3, 1] }}
-      className="absolute z-10 mt-1 rounded-xl shadow-2xl p-4 w-72"
+      className="absolute z-10 mt-1 rounded-2xl p-4 w-72"
       style={{
-        border: '1px solid var(--color-border)',
+        border: '1px solid rgba(255,255,255,0.10)',
         background: 'var(--color-surface-raised)',
-        backdropFilter: 'blur(16px)',
+        backdropFilter: 'blur(20px)',
+        WebkitBackdropFilter: 'blur(20px)',
+        boxShadow: 'var(--shadow-palette)',
       }}
     >
       {/* Month nav */}
@@ -103,7 +109,7 @@ function DateTimePicker({ value, onChange, onClose, minDate }: {
         <button
           type="button"
           onClick={prevMonth}
-          className="p-1 rounded-md hover:bg-white/[0.06] transition-colors"
+          className="p-1 rounded-md hover:bg-white/[0.04] transition-colors"
           style={{ color: 'var(--color-muted-foreground)' }}
         >
           <ChevronLeft className="w-4 h-4" />
@@ -114,7 +120,7 @@ function DateTimePicker({ value, onChange, onClose, minDate }: {
         <button
           type="button"
           onClick={nextMonth}
-          className="p-1 rounded-md hover:bg-white/[0.06] transition-colors"
+          className="p-1 rounded-md hover:bg-white/[0.04] transition-colors"
           style={{ color: 'var(--color-muted-foreground)' }}
         >
           <ChevronRight className="w-4 h-4" />
@@ -322,22 +328,24 @@ export function TransferForm() {
 
   const inputBaseStyle: React.CSSProperties = {
     border: '1px solid var(--color-border)',
-    background: 'var(--color-background)',
+    background: 'rgba(255,255,255,0.10)',
     color: 'var(--color-foreground)',
     transition: 'border-color var(--duration-normal) var(--ease-out)',
     outline: 'none',
+    backdropFilter: 'blur(12px)',
+    WebkitBackdropFilter: 'blur(12px)',
   };
 
   if (!isConnected) {
     return (
       <section
-        className="rounded-xl p-6 border"
-        style={{ borderColor: 'var(--color-border)', background: 'var(--color-surface)' }}
+        className="rounded-2xl p-6 border"
+        style={{ borderColor: 'rgba(255,255,255,0.05)', background: 'rgba(10,10,28,0.55)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)', boxShadow: '0 8px 32px rgba(0,0,0,0.28)' }}
       >
         <div className="text-center py-12" style={{ color: 'var(--color-muted-foreground)' }}>
           <div
-            className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3"
-            style={{ background: 'var(--color-surface-raised)' }}
+            className="w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-3"
+            style={{ background: 'rgba(255,255,255,0.04)' }}
           >
             <Send className="w-5 h-5" style={{ color: 'var(--color-muted-foreground)' }} />
           </div>
@@ -350,8 +358,8 @@ export function TransferForm() {
   if (nonCcHoldings.length === 0) {
     return (
       <section
-        className="rounded-xl p-6 border"
-        style={{ borderColor: 'var(--color-border)', background: 'var(--color-surface)' }}
+        className="rounded-2xl p-6 border"
+        style={{ borderColor: 'rgba(255,255,255,0.05)', background: 'rgba(10,10,28,0.55)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)', boxShadow: '0 8px 32px rgba(0,0,0,0.28)' }}
       >
         <div className="text-center py-12" style={{ color: 'var(--color-muted-foreground)' }}>
           <p className="text-sm">No transferable tokens found</p>
@@ -363,12 +371,12 @@ export function TransferForm() {
   return (
     <>
       <section
-        className="rounded-xl border p-6"
-        style={{ borderColor: 'var(--color-border)', background: 'var(--color-surface)' }}
+        className="rounded-2xl border p-6 relative"
+        style={{ borderColor: 'rgba(255,255,255,0.05)', background: 'rgba(10,10,28,0.55)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)', boxShadow: '0 8px 32px rgba(0,0,0,0.28)', zIndex: 10 }}
       >
         <h2
-          className="text-lg font-semibold mb-6 flex items-center gap-2"
-          style={{ color: 'var(--color-foreground-dim)' }}
+          className="text-lg font-semibold mb-6 flex items-center gap-2 tracking-tight"
+          style={{ color: 'var(--color-foreground-dim)', fontFamily: "'Inter Tight', 'Inter', system-ui, sans-serif" }}
         >
           <Send className="w-5 h-5" style={{ color: 'var(--color-accent)' }} />
           Transfer Tokens
@@ -387,7 +395,7 @@ export function TransferForm() {
               <button
                 type="button"
                 onClick={() => setIsOpen(!isOpen)}
-                className="w-full flex items-center justify-between rounded-lg px-4 py-3 text-sm"
+                className="w-full flex items-center justify-between rounded-xl px-4 py-3 text-sm"
                 style={inputBaseStyle}
                 onMouseEnter={(e) => { if (!isOpen) e.currentTarget.style.borderColor = 'var(--color-border-hover)'; }}
                 onMouseLeave={(e) => { if (!isOpen) e.currentTarget.style.borderColor = 'var(--color-border)'; }}
@@ -418,11 +426,13 @@ export function TransferForm() {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: -4, scale: 0.98 }}
                     transition={{ duration: 0.15, ease: [0.16, 1, 0.3, 1] }}
-                    className="absolute z-10 mt-1 w-full rounded-lg shadow-2xl max-h-52 overflow-y-auto"
+                    className="absolute z-10 mt-1 w-full rounded-xl max-h-52 overflow-y-auto"
                     style={{
-                      border: '1px solid var(--color-border)',
+                      border: '1px solid rgba(0,0,0,0.10)',
                       background: 'var(--color-surface-raised)',
-                      backdropFilter: 'blur(16px)',
+                      backdropFilter: 'blur(20px)',
+                      WebkitBackdropFilter: 'blur(20px)',
+                      boxShadow: 'var(--shadow-palette)',
                     }}
                   >
                     {nonCcHoldings.map((h) => {
@@ -468,7 +478,7 @@ export function TransferForm() {
               value={recipient}
               onChange={(e) => setRecipient(e.target.value)}
               placeholder="Recipient party ID"
-              className="w-full rounded-lg px-4 py-3 text-sm placeholder:text-[var(--color-muted-foreground)] focus:border-[var(--color-accent)]"
+              className="w-full rounded-xl px-4 py-3 text-sm placeholder:text-[var(--color-muted-foreground)] focus:border-[var(--color-accent)]"
               style={inputBaseStyle}
             />
           </div>
@@ -495,7 +505,7 @@ export function TransferForm() {
                 className="flex-1 rounded-lg px-4 py-3 text-sm placeholder:text-[var(--color-muted-foreground)] focus:border-[var(--color-accent)]"
                 style={inputBaseStyle}
               />
-              <SmoothButton variant="outline" size="sm" onClick={handleMax} disabled={!selectedHolding}>
+              <SmoothButton variant="outline" size="sm" className="h-11" onClick={handleMax} disabled={!selectedHolding}>
                 Max
               </SmoothButton>
             </div>
@@ -522,7 +532,7 @@ export function TransferForm() {
               value={memo}
               onChange={(e) => setMemo(e.target.value)}
               placeholder="Add a note..."
-              className="w-full rounded-lg px-4 py-3 text-sm placeholder:text-[var(--color-muted-foreground)] focus:border-[var(--color-accent)]"
+              className="w-full rounded-xl px-4 py-3 text-sm placeholder:text-[var(--color-muted-foreground)] focus:border-[var(--color-accent)]"
               style={inputBaseStyle}
             />
           </div>
@@ -547,7 +557,7 @@ export function TransferForm() {
                     className="rounded-lg px-3 py-2 text-sm font-medium transition-all duration-200"
                     style={{
                       border: active ? '1px solid var(--color-accent)' : '1px solid var(--color-border)',
-                      background: active ? 'var(--color-accent-muted)' : 'var(--color-background)',
+                      background: active ? 'var(--color-accent-muted)' : 'rgba(255,255,255,0.10)',
                       color: active ? 'var(--color-accent-soft)' : 'var(--color-muted-foreground)',
                     }}
                   >
@@ -565,7 +575,7 @@ export function TransferForm() {
                   className="rounded-lg px-3 py-2 text-sm font-medium transition-all duration-200"
                   style={{
                     border: isCustomExpiry ? '1px solid var(--color-accent)' : '1px solid var(--color-border)',
-                    background: isCustomExpiry ? 'var(--color-accent-muted)' : 'var(--color-background)',
+                    background: isCustomExpiry ? 'var(--color-accent-muted)' : 'rgba(255,255,255,0.10)',
                     color: isCustomExpiry ? 'var(--color-accent-soft)' : 'var(--color-muted-foreground)',
                   }}
                 >
@@ -589,10 +599,10 @@ export function TransferForm() {
 
           {/* CC Balance */}
           <div
-            className="rounded-lg border p-3.5 flex items-center gap-3"
+            className="rounded-xl border p-3.5 flex items-center gap-3"
             style={{
               borderColor: 'var(--color-border)',
-              background: 'var(--color-background)',
+              background: 'rgba(255,255,255,0.04)',
             }}
           >
             <Coins className="w-4 h-4 flex-shrink-0" style={{ color: 'var(--color-muted-foreground)' }} />
@@ -606,14 +616,14 @@ export function TransferForm() {
 
           {/* Gas Estimate */}
           <div
-            className="rounded-lg border p-3.5 flex items-center gap-3"
+            className="rounded-xl border p-3.5 flex items-center gap-3"
             style={{
               borderColor: estimatedGas
-                ? (estimatedGas.can_execute ? '#22c55e33' : '#f59e0b33')
+                ? (estimatedGas.can_execute ? 'rgba(34,197,94,0.25)' : 'rgba(245,158,11,0.25)')
                 : 'var(--color-border)',
               background: estimatedGas
                 ? (estimatedGas.can_execute ? 'var(--color-success-muted)' : 'var(--color-warning-muted)')
-                : 'var(--color-background)',
+                : 'rgba(255,255,255,0.04)',
             }}
           >
             {estimatedGas

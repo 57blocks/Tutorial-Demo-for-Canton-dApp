@@ -1,1 +1,6 @@
 daml/
+.DS_Store
+*snapshot*
+.env
+dist/
+node_modules/
